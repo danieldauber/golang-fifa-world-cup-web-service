@@ -16,7 +16,8 @@ func ListWinners(res http.ResponseWriter, req *http.Request) {
 	res.Header().Add("Content-Type", "application/json")
 	year := req.URL.Query().Get("year")
 
-	if year != "" {
+	if year == "" {
+
 		winners, err := data.ListAllJSON()
 
 		if err != nil {
@@ -24,6 +25,7 @@ func ListWinners(res http.ResponseWriter, req *http.Request) {
 			return
 		}
 		res.Write(winners)
+
 	} else {
 		filteredwinners, err := data.ListAllByYear(year)
 
